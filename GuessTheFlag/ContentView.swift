@@ -8,47 +8,20 @@
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-        VStack {
-            Button("Button 1", action: delete)
-                .buttonStyle(.bordered)
-            Button("Button 2", role: .destructive, action: delete)
-                .buttonStyle(.bordered)
-            Button("Button 3", action: delete)
-                .buttonStyle(.borderedProminent)
-            Button("Button 4", role: .destructive, action: delete)
-                .buttonStyle(.borderedProminent)
-            Button("Button 5", action: delete)
-                .buttonStyle(.borderedProminent)
-                .tint(.black)
-            Button("Button 6", action: delete)
-            
-            // MARK: - Custom button
-            
-            Button {
-                print("Custom button pressed")
-            } label: {
-                Text("Tap me")
-                    .padding()
-                    .foregroundColor(.white)
-                    .background(.red)
-            }
-            
-            // MARK: - Load images
-            
-            Image(systemName: "pencil")
-            
-            Button {
-                print("Edit button pressed")
-            } label: {
-                Label("Edit", systemImage: "pencil.circle")
-            }
-            
-        }
-    }
+    @State private var showingAlert = false
     
-    func delete() {
-        print("Deleting")
+    var body: some View {
+        Button("Show Alert") {
+            showingAlert = true
+        }
+        .buttonStyle(.bordered)
+        .alert("Important Alert", isPresented: $showingAlert) {
+            Button("Delete", role: .destructive) {}
+            Button("Cancel", role: .cancel) {}
+            Button("Ok") {}
+        } message: {
+            Text("Please read this")
+        }
     }
 }
 
